@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="kafka-multi-version-support" />
+        <module name="kafka_groovy_0_10_0_0" />
+        <module name="kafka_groovy_0_8_0_0" />
+        <module name="kafka_groovy_0_9_0_0" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="kafka-multi-version-support" target="1.8" />
+      <module name="kafka_groovy_0_10_0_0" target="1.8" />
+      <module name="kafka_groovy_0_8_0_0" target="1.8" />
+      <module name="kafka_groovy_0_9_0_0" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

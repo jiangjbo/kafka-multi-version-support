@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/kafka-multi-version-support.iml" filepath="$PROJECT_DIR$/kafka-multi-version-support.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kafka_groovy/kafka_groovy_0_10_0_0/kafka_groovy_0_10_0_0.iml" filepath="$PROJECT_DIR$/kafka_groovy/kafka_groovy_0_10_0_0/kafka_groovy_0_10_0_0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kafka_groovy/kafka_groovy_0_8_0_0/kafka_groovy_0_8_0_0.iml" filepath="$PROJECT_DIR$/kafka_groovy/kafka_groovy_0_8_0_0/kafka_groovy_0_8_0_0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kafka_groovy/kafka_groovy_0_9_0_0/kafka_groovy_0_9_0_0.iml" filepath="$PROJECT_DIR$/kafka_groovy/kafka_groovy_0_9_0_0/kafka_groovy_0_9_0_0.iml" />
+    </modules>
+  </component>
+</project>
