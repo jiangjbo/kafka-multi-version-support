@@ -26,27 +26,4 @@ public class KafkaMultiVersionHelper {
         return ipPort;
     }
 
-//    public static Object getDecoder(String type,byte[] bytes){
-//        if(bytes == null){
-//            return null;
-//        }
-//        Object value = null;
-//        switch(type){
-//            case "StringDeserializer" :
-//                value = new String(bytes);break;
-//            case "ByteBufferDeserializer" :
-//                value = ByteBuffer.wrap(bytes);break;
-//            case "IntegerDeserializer" :
-//                value = bytes.length == 0 ? null : Integer.valueOf(new String(bytes));break;
-//            case "LongDeserializer" :
-//                value = bytes.length == 0 ? null : Long.valueOf(new String(bytes));break;
-//            case "DoubleDeserializer" :
-//                value = bytes.length == 0 ? null : Double.valueOf(new String(bytes));break;
-//            case "BytesDeserializer" :
-//                value = Bytes.wrap(bytes);break;
-//            default:
-//                value = bytes;break;
-//        }
-//        return value;
-//    }
 }

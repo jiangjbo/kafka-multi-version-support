@@ -1,7 +1,6 @@
 package com.jbo.kafka.multiversion.support.conf;
 
 
-import com.jbo.kafka.multiversion.support.factory.KafkaVersionClassLoaderFactory;
 import com.jbo.kafka.multiversion.support.factory.KafkaVersionFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -50,8 +49,9 @@ public class KafkaConfiguration {
     }
 
     public void build() {
+        // 初始化配置路径
         kafkaConfiguration.initPath();
-
+        // 根据ip获取对应的kafka version
         for (String address : addressVersion.keySet()) {
             String version = addressVersion.get(address);
             try {
@@ -59,8 +59,6 @@ public class KafkaConfiguration {
                     version = KafkaVersionFactory.me().getKafkaVersion(address);
                     addressVersion.put(address, version);
                 }
-                // 加载version对应的kafka处理类
-                KafkaVersionClassLoaderFactory.me().getKafkaVersionClassLoader(version);
             } catch (Exception e) {
                 logger.error("", e);
             }

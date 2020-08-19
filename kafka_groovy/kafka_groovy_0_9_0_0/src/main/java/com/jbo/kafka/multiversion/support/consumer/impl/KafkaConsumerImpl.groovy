@@ -3,16 +3,18 @@ package com.jbo.kafka.multiversion.support.consumer.impl
 import com.jbo.kafka.multiversion.support.consumer.IKafkaConsumer
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.clients.consumer.ConsumerRecords
+import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-class KafkaConsumer<K,V> implements IKafkaConsumer<K,V> {
-    private static final Logger logger = LoggerFactory.getLogger(KafkaConsumer.class)
+class KafkaConsumerImpl<K,V> implements IKafkaConsumer<K,V> {
 
-    private org.apache.kafka.clients.consumer.KafkaConsumer<K,V> consumer
+    private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerImpl.class)
 
-    KafkaConsumer(Properties conf) {
-        consumer = new org.apache.kafka.clients.consumer.KafkaConsumer<>(conf)
+    private KafkaConsumer<K,V> consumer
+
+    KafkaConsumerImpl(Properties conf) {
+        consumer = new KafkaConsumer<>(conf)
     }
 
     @Override

@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.jbo.kafka.multiversion.support.conf.KafkaVersionConstants.VERSION_PRE;
+
 /**
  * @author jiangbo
  * @create 2018-01-12 17:35
@@ -45,8 +47,8 @@ public class LoaderVersionHandlerClasses {
     private KafkaVersionHandlerInfo build(String classesPath, String groovyPath, JSONObject handlerInfo) {
         String id = handlerInfo.getString("id");
         String version = handlerInfo.getString("version");
-        String jars = handlerInfo.getOrDefault("jars", "v_" + id).toString();
-        String groovy = handlerInfo.getOrDefault("groovy", "v_" + id).toString();
+        String jars = handlerInfo.getOrDefault("jars", VERSION_PRE + id).toString();
+        String groovy = handlerInfo.getOrDefault("groovy", VERSION_PRE  + id).toString();
         return new KafkaVersionHandlerInfo(id, version,
                 parsePath(classesPath, jars), parsePath(groovyPath, groovy));
 

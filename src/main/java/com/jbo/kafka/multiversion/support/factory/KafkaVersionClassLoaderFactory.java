@@ -1,6 +1,7 @@
 package com.jbo.kafka.multiversion.support.factory;
 
 import com.jbo.kafka.multiversion.support.conf.KafkaConfiguration;
+import com.jbo.kafka.multiversion.support.conf.KafkaVersionConstants;
 import com.jbo.kafka.multiversion.support.conf.LoaderVersionHandlerClasses;
 import com.jbo.kafka.multiversion.support.consumer.IKafkaConsumer;
 import com.jbo.kafka.multiversion.support.entry.KafkaVersionClassLoader;
@@ -31,6 +32,7 @@ public class KafkaVersionClassLoaderFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(KafkaVersionClassLoaderFactory.class);
 
+    // key -> kafka version
     private Map<String, KafkaVersionClassLoader> kafkaVersionClassLoaders = new ConcurrentHashMap<>();
 
     private static KafkaVersionClassLoaderFactory kvcf;
@@ -79,7 +81,7 @@ public class KafkaVersionClassLoaderFactory {
                 GroovyClassLoader groovyClassLoader = new GroovyClassLoader(kafkaClassLoader, compilerConfiguration);
                 groovyFiles.forEach(rethrowConsumer(groovyFile ->
                         groovyClassLoader.parseClass(new GroovyCodeSource(groovyFile, Charset.defaultCharset().name()), true)));
-                kafkaKafkaVersionClassLoader = new KafkaVersionClassLoader(version, kafkaClassLoader, groovyClassLoader);
+                kafkaKafkaVersionClassLoader = new KafkaVersionClassLoader(version, groovyClassLoader);
             }
             return kafkaKafkaVersionClassLoader;
         } catch (IOException e) {
@@ -89,13 +91,7 @@ public class KafkaVersionClassLoaderFactory {
     }
 
     private Class<?> getLoaderClass(KafkaVersionClassLoader kafkaClassLoader, String clazzName) throws Exception {
-        Class<?> clazz;
-        if (kafkaClassLoader.isUseGroovy()) {
-            clazz = kafkaClassLoader.getGroovyClassLoader().loadClass(clazzName);
-        } else {
-            clazz = kafkaClassLoader.getKafkaClassLoader().loadClass(clazzName);
-        }
-        return clazz;
+        return kafkaClassLoader.getClassLoader().loadClass(clazzName);
     }
 
     /**
@@ -105,11 +101,10 @@ public class KafkaVersionClassLoaderFactory {
         ClassLoader oldClassLoader = Thread.currentThread().getContextClassLoader();
 
         KafkaVersionClassLoader kafkaClassLoader = getKafkaVersionClassLoader(version);
-        Thread.currentThread().setContextClassLoader(kafkaClassLoader.getKafkaClassLoader());
+        Thread.currentThread().setContextClassLoader(kafkaClassLoader.getClassLoader());
         IKafkaConsumer kafkaConsumer = null;
         try {
-            String consumerClass = getConsumerClass(version);
-            Class<?> clazz = getLoaderClass(kafkaClassLoader, consumerClass);
+            Class<?> clazz = getLoaderClass(kafkaClassLoader, KafkaVersionConstants.CONSUMER_CLASS);
             kafkaConsumer = (IKafkaConsumer) clazz.getConstructor(Properties.class).newInstance(conf);
         } catch (Exception e) {
             String message = String.format("kafka版本[ %s ]对应的处理类不存在: ", version);
@@ -127,15 +122,6 @@ public class KafkaVersionClassLoaderFactory {
                 .map(KafkaVersionHandlerInfo::getGroovy)
                 .findFirst();
         return optional.orElseGet(Collections::emptyList);
-    }
-
-    private final String consumerClass = "com.jbo.kafka.multiversion.support.consumer.impl.KafkaConsumerAdapt_%s";
-    private String getConsumerClass(String version) throws Exception {
-        Optional<String> optional = kafkaVersionClassJars.stream()
-                .filter(kafkaVersionClassJar -> kafkaVersionClassJar.getVersion().equals(version))
-                .map(kafkaVersionHandlerInfo -> String.format(consumerClass, kafkaVersionHandlerInfo.getId()))
-                .findFirst();
-        return optional.orElseThrow(() -> new Exception(String.format("%s, 未定义处理类", version)));
     }
 
     class KafkaClassLoader extends URLClassLoader {

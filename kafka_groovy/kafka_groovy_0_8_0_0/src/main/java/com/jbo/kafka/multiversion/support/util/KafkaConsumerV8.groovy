@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory
 
 import java.nio.ByteBuffer
 
-class KafkaConsumerImpl<K, V>{
+class KafkaConsumerV8<K, V>{
     private Logger logger = LoggerFactory.getLogger(KafkaTest.class)
 
     private String clientId
@@ -39,7 +39,7 @@ class KafkaConsumerImpl<K, V>{
     private int soTimeout
     private Map<String, Integer> address
 
-    public KafkaConsumerImpl(Properties props) {
+    public KafkaConsumerV8(Properties props) {
         this.clientId = props.getProperty("client.id")
         this.maxPollSize = StringUtils.isNumeric(String.valueOf(props.get("max.poll.records"))) ? Integer.parseInt(String.valueOf(props.get("max.poll.records"))) : 1000
         String bootstrapServers = props.getProperty("bootstrap.servers")

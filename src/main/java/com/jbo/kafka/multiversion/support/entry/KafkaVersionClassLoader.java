@@ -1,7 +1,5 @@
 package com.jbo.kafka.multiversion.support.entry;
 
-import groovy.lang.GroovyClassLoader;
-
 /**
  * @author jiangbo
  * @create 2018-01-08 19:39
@@ -10,37 +8,19 @@ import groovy.lang.GroovyClassLoader;
 public class KafkaVersionClassLoader {
 
     private String version;
-    private ClassLoader kafkaClassLoader;
-    private GroovyClassLoader groovyClassLoader;
-    private boolean isUseGroovy;
+    private ClassLoader classLoader;
 
-    public KafkaVersionClassLoader(String version, ClassLoader kafkaClassLoader) {
-        this(version, kafkaClassLoader, null);
-    }
-
-    public KafkaVersionClassLoader(String version, ClassLoader kafkaClassLoader, GroovyClassLoader groovyClassLoader) {
+    public KafkaVersionClassLoader(String version, ClassLoader classLoader) {
         this.version = version;
-        this.kafkaClassLoader = kafkaClassLoader;
-        if(groovyClassLoader != null){
-            this.groovyClassLoader = groovyClassLoader;
-            this.isUseGroovy = true;
-        }
+        this.classLoader = classLoader;
     }
 
     public String getVersion() {
         return version;
     }
 
-    public ClassLoader getKafkaClassLoader() {
-        return kafkaClassLoader;
-    }
-
-    public GroovyClassLoader getGroovyClassLoader() {
-        return groovyClassLoader;
-    }
-
-    public boolean isUseGroovy() {
-        return isUseGroovy;
+    public ClassLoader getClassLoader() {
+        return classLoader;
     }
 
     @Override

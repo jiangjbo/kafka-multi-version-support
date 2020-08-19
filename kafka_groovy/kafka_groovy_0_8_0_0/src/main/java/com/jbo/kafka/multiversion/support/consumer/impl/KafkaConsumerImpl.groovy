@@ -1,14 +1,14 @@
 package com.jbo.kafka.multiversion.support.consumer.impl
 
 import com.jbo.kafka.multiversion.support.consumer.IKafkaConsumer
-import com.jbo.kafka.multiversion.support.util.KafkaConsumerImpl
+import com.jbo.kafka.multiversion.support.util.KafkaConsumerV8
 
-class KafkaConsumer<K,V> implements IKafkaConsumer<K,V> {
+class KafkaConsumerImpl<K,V> implements IKafkaConsumer<K,V> {
 
-    private KafkaConsumerImpl<K, V> kafkaConsumer;
+    private KafkaConsumerV8<K, V> kafkaConsumer;
 
-    KafkaConsumer(Properties conf) {
-        consumer = new KafkaConsumerImpl<>(conf)
+    KafkaConsumerImpl(Properties conf) {
+        consumer = new KafkaConsumerV8<>(conf)
     }
 
     @Override

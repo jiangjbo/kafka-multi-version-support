@@ -7,12 +7,13 @@ import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-class KafkaConsumerAdapt_2_4_1<K,V> implements IKafkaConsumer<K,V> {
-    private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerAdapt_2_4_1.class)
+class KafkaConsumerImpl<K,V> implements IKafkaConsumer<K,V> {
+
+    private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerImpl.class)
 
     private KafkaConsumer<K,V> consumer
 
-    KafkaConsumerAdapt_2_4_1(Properties conf) {
+    KafkaConsumerImpl(Properties conf) {
         consumer = new KafkaConsumer<>(conf)
     }
 

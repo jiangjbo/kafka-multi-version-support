@@ -15,6 +15,7 @@
     <bytecodeTargetLevel>
       <module name="kafka-multi-version-support" target="1.8" />
       <module name="kafka_groovy_0_10_0_0" target="1.8" />
+      <module name="kafka_groovy_0_10_0_0_above" target="1.8" />
       <module name="kafka_groovy_0_8_0_0" target="1.8" />
       <module name="kafka_groovy_0_9_0_0" target="1.8" />
     </bytecodeTargetLevel>
